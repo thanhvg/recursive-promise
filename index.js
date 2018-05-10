@@ -1,3 +1,4 @@
+const singletonAsync = require('./singleton-async.js');
 const EventEmitter = require('events');
 
 const myEmitter = new EventEmitter();
@@ -8,19 +9,10 @@ const asyncAction = (a) => new Promise((resolve, reject) => {
                    }, 1000);
 })
 
-// asyncAction('yay')
+const getAsyncData = (a) =>  asyncAction(a).then((aa) => console.log('getAsyncData returns', aa));
 
-let promiseLock = Promise.resolve();
 
-const instantLock = () => {
-};
-
-// assign in then clause is not instant because then
-const getAsyncData = (a) => promiseLock.then(() => { promiseLock = asyncAction(a).then((aa) => console.log('getAsyncData returns', aa)); return promiseLock; })
-// const getAsyncData = (a) => { promiseLock = asyncAction(a).then((aa) => console.log('getAsyncData returns', aa)); return promiseLock; }
-
-myEmitter.on('event', getAsyncData);
-
+myEmitter.on('event', singletonAsync(getAsyncData));
 
 myEmitter.emit('event', 'a');
 myEmitter.emit('event', 'b');

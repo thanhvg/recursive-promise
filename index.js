@@ -18,5 +18,7 @@ myEmitter.emit('event', 'a');
 myEmitter.emit('event', 'b');
 myEmitter.emit('event', 'c');
 
-setTimeout(() => myEmitter.emit('event', 'd'), 20)
-setTimeout(() => myEmitter.emit('event', 'e'), 20)
+setTimeout(() => myEmitter.emit('event', 'd'), 1001)
+setTimeout(() => myEmitter.emit('event', 'e'), 2000)
+
+setTimeout(() => myEmitter.emit('event', 'f'), 3000)

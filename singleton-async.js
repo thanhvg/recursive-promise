@@ -1,5 +1,5 @@
 // fn return promise
-module.exports =  singletonAsync = (fn) => {
+module.exports = (fn) => {
   let myFn = null;
   let count = 0;
 
@@ -32,3 +32,10 @@ module.exports =  singletonAsync = (fn) => {
   };
 };
 
+function* gen(fn) {
+  let chain = Promise.resolve();
+  while (true) {
+    let a = yield chain;
+    let chain = chain.then(() => a)
+  }
+}
